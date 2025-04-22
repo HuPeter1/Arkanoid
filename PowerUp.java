@@ -7,7 +7,7 @@ import javax.swing.*;
 public class PowerUp{
   private int x, y, width, height, type;
   public static final int EXTRABALLS = 1, BIGGERPADDLE = 2, ONEUP = 3; // types of power ups
-  private static Image EBImage = new ImageIcon("EXTRABALLS.jpg").getImage(), BPImage = new ImageIcon("BIGGERPADDLE.jpg").getImage(), OUImage = new ImageIcon("ONEUP.jpg").getImage();
+  private static Image EBImage = new ImageIcon("EXTRABALLS.png").getImage(), BPImage = new ImageIcon("BIGGERPADDLE.png").getImage(), OUImage = new ImageIcon("ONEUP.png").getImage();
   
   public PowerUp(int xx, int yy, int t){
     x = xx;
@@ -23,7 +23,7 @@ public class PowerUp{
   
   public static void chance(ArrayList<PowerUp> powerUps, Brick b){ // method to randomly generate power ups
     Random rand = new Random();
-    if (rand.nextInt(10) == 0){ // 10% chance to generate a power up
+    if (rand.nextInt(5) == 0){ // 20% chance to generate a power up
       powerUps.add(new PowerUp(b.getX() + b.getWidth() / 2 - 20, b.getY() + b.getHeight() / 2, rand.nextInt(3) + 1)); // adding a random power up to the ArrayList
     }
   }
