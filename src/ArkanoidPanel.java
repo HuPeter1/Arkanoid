@@ -59,11 +59,11 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
   }
   
   public void addLife(){ // method to add a life
-    lives ++;
+    ++lives;
   }
   
   public void removeLife(){ // method to remove a life
-    lives --;
+    --lives;
   }
   
   public void move(){ // method to mvoe everything
