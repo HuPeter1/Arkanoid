@@ -2,12 +2,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-/*Main class*/
+// Main class
 
 class Arkanoid extends JFrame{
-  ArkanoidPanel game = new ArkanoidPanel(); //panel
+  ArkanoidPanel game = new ArkanoidPanel(); // panel
   
-  public Arkanoid(){ //managing the window
+  public Arkanoid(){ // managing the window
     super("Arkanoid");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     add(game);

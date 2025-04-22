@@ -1,6 +1,6 @@
 import java.awt.*;
 
-/*This class manages the Paddle (moving, the activating BIGGERPADDLE power up, drawing)*/
+// This class manages the Paddle (moving, the activating BIGGERPADDLE power up, drawing)
 
 public class Paddle{
   private int x, y, width, height, left, right, powerTime;
@@ -26,41 +26,41 @@ public class Paddle{
   public int getHeight(){return height;}
   
   public void move(boolean []keys){
-    if (powerTime > -1){ //if the BIGGERPADDLE power up is active it will decrease the time (goes to -1 so that the width isn't set to 100 each time)
+    if (powerTime > -1){ // if the BIGGERPADDLE power up is active it will decrease the time (goes to -1 so that the width isn't set to 100 each time)
       powerTime --;
     }
-    if (powerTime == 0){ //BIGGERPADDLE power up ran out so width goes back to 100
+    if (powerTime == 0){ // BIGGERPADDLE power up ran out so width goes back to 100
       width = 100;
 			x += 25;
     }
-    if (keys[left]){ //left arrow pressed
+    if (keys[left]){ // left arrow pressed
       x = Math.max(0, x - 5);
     }
-    if (keys[right]){ //right arrow pressed
+    if (keys[right]){ // right arrow pressed
       x = Math.min(800 - width, x + 5);
     }
   }
   
-  public void power(){ //method that activates the power up
-		if (width != 150){ //checking if width isn't already 150
-      width = 150; //changing the width
-		  x -= 25; //centering the paddle
+  public void power(){ // method that activates the power up
+		if (width != 150){ // checking if width isn't already 150
+      width = 150; // changing the width
+		  x -= 25; // centering the paddle
 		}
-	  if (x < 0){ //making sure the paddle isn't off the screen when expanded
+	  if (x < 0){ // making sure the paddle isn't off the screen when expanded
 			x = 0;
 		}
-		else if (x > 650){ //making sure the paddle isn't off the screen when expanded
+		else if (x > 650){ // making sure the paddle isn't off the screen when expanded
 			x = 650;
 		}
-		if (powerTime == -1){ //adding time
+		if (powerTime == -1){ // adding time
       powerTime += 501;
 		}
-		else{ //adding time
+		else{ // adding time
 			powerTime += 500;
 		}
   }
   
-  public void draw(Graphics g){ //drawing the paddle
+  public void draw(Graphics g){ // drawing the paddle
     g.setColor(Color.RED);
     g.fillRect(x, y, (int)(width * 0.15), 15);
     g.fillRect(x + (int)(width * 0.85), y, (int)(width * 0.15), 15);

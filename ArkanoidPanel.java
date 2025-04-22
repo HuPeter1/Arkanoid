@@ -3,19 +3,19 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
-/*This class manages the game itself (screen, making levels, lives, moving, actions, deciding what to draw)*/
+// This class manages the game itself (screen, making levels, lives, moving, actions, deciding what to draw)
 
 class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
-  private boolean []keys; //keyboard keys
+  private boolean []keys; // keyboard keys
   private Paddle p;
   private ArrayList<Ball> balls;
-  private ArrayList<Integer> removeBalls; //ArrayList to tell which balls should be removed
+  private ArrayList<Integer> removeBalls; // ArrayList to tell which balls should be removed
   private Timer timer;
   private ArrayList<Brick> bricks;
   private ArrayList<PowerUp> powerUps;
-  public static final int GAMEOVER = -1, INTRO = 0, LEVEL1 = 1, CONTINUE1 = 2, LASTLEVEL = 3, VICTORY = 4; //all the different screens
-  private int screen, lives, score, highScore, flash; //integers for simple game things (flash is for text flashing)
-  private boolean pause; //variable to tell when the game is paused
+  public static final int GAMEOVER = -1, INTRO = 0, LEVEL1 = 1, CONTINUE1 = 2, LASTLEVEL = 3, VICTORY = 4; // all the different screens
+  private int screen, lives, score, highScore, flash; // integers for simple game things (flash is for text flashing)
+  private boolean pause; // variable to tell when the game is paused
   private Image title, back;
   
   public ArkanoidPanel(){
@@ -34,7 +34,7 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
     timer.start();
   }
   
-  public void start(){ //method for starting each level
+  public void start(){ // method for starting each level
     pause = false;
     p = new Paddle(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
     balls = new ArrayList<Ball>();
@@ -43,49 +43,49 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
     bricks = new ArrayList<Brick>();
     powerUps = new ArrayList<PowerUp>();
     Brick.make(screen, bricks);
-    if (screen == LEVEL1){ //checking if this start is for LEVEL1
+    if (screen == LEVEL1){ // checking if this start is for LEVEL1
       lives = 3;
 	    score = 0;
     }
   }
   
-  public void addLife(){ //method to add a life
+  public void addLife(){ // method to add a life
     lives ++;
   }
   
-  public void removeLife(){ //method to remove a life
+  public void removeLife(){ // method to remove a life
     lives --;
   }
   
-  public void move(){ //method to mvoe everything
+  public void move(){ // method to mvoe everything
     p.move(keys);
-    for (int i = 0; i < balls.size(); i ++){ //going through each ball
+    for (int i = 0; i < balls.size(); i ++){ // going through each ball
       balls.get(i).move(balls, p);
-      if (balls.get(i).isUnder()){ //checking if the ball is under the bottom side of the screen
-        removeBalls.add(i); //adding the index to removeBalls
+      if (balls.get(i).isUnder()){ // checking if the ball is under the bottom side of the screen
+        removeBalls.add(i); // adding the index to removeBalls
       }
-      for (int j = 0; j < bricks.size(); j ++){ //going through each brick
-        if (balls.get(i).hit(bricks.get(j))){ //checking if any of the balls are hitting any of the bricks
-		      score += 10; //adding ten to the score
-          if (bricks.get(j).getHealth() == 1){ //checking if the health of the brick was one before taking damage
-            PowerUp.chance(powerUps, bricks.get(j)); //randomly generating a power up
+      for (int j = 0; j < bricks.size(); j ++){ // going through each brick
+        if (balls.get(i).hit(bricks.get(j))){ // checking if any of the balls are hitting any of the bricks
+		      score += 10; // adding ten to the score
+          if (bricks.get(j).getHealth() == 1){ // checking if the health of the brick was one before taking damage
+            PowerUp.chance(powerUps, bricks.get(j)); // randomly generating a power up
           }
-          Brick.damage(bricks, bricks.get(j)); //damaging the brick and possibly removing it
-          break; //breaking the loop so that none of the balls hit two bricks at the same time
+          Brick.damage(bricks, bricks.get(j)); // damaging the brick and possibly removing it
+          break; // breaking the loop so that none of the balls hit two bricks at the same time
         }
       }
     }
-    if (removeBalls.isEmpty() == false){ //checking if there are balls that need to be removed (doing this outside of the normal loop for balls to prevent crashes)
-      for (int i = removeBalls.size(); i > 0; i --){ //i starts at the end to prevent crashes
-        Ball.delete(balls, balls.get(removeBalls.get(i - 1))); //removing balls starting from the last index of removeBalls
-        if (Ball.isEmpty(balls, p)){ //checking if there aren't any balls
+    if (removeBalls.isEmpty() == false){ // checking if there are balls that need to be removed (doing this outside of the normal loop for balls to prevent crashes)
+      for (int i = removeBalls.size(); i > 0; i --){ // i starts at the end to prevent crashes
+        Ball.delete(balls, balls.get(removeBalls.get(i - 1))); // removing balls starting from the last index of removeBalls
+        if (Ball.isEmpty(balls, p)){ // checking if there aren't any balls
           removeLife();
         }
       }
-      removeBalls.clear(); //clearing the removeBalls ArrayList
+      removeBalls.clear(); // clearing the removeBalls ArrayList
     }
-    for (int i = 0; i < powerUps.size(); i ++){ //going through each power up
-      if (PowerUp.move(powerUps, powerUps.get(i), balls, p) == PowerUp.ONEUP){ //moving each power up and also checking if a ONEUP power up was hit
+    for (int i = 0; i < powerUps.size(); i ++){ // going through each power up
+      if (PowerUp.move(powerUps, powerUps.get(i), balls, p) == PowerUp.ONEUP){ // moving each power up and also checking if a ONEUP power up was hit
         addLife();
       }
     }
@@ -94,40 +94,40 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
   @Override
   public void actionPerformed(ActionEvent e){
     if (keys[KeyEvent.VK_SPACE]){
-      if (pause){ //if paused
-        pause = false; //unpausing
+      if (pause){ // if paused
+        pause = false; // unpausing
       }
-      else if (screen == INTRO || screen == CONTINUE1){ //starts the next level
+      else if (screen == INTRO || screen == CONTINUE1){ // starts the next level
         screen ++;
         start();
       }
     }
     if (keys[KeyEvent.VK_ENTER]){
-      if (screen == LEVEL1 || screen == LASTLEVEL){ //checking if the screen is on a level
-        pause = true; //pausing
+      if (screen == LEVEL1 || screen == LASTLEVEL){ // checking if the screen is on a level
+        pause = true; // pausing
       }
     }
     if (keys[KeyEvent.VK_ESCAPE]){
-      if ((screen != LEVEL1 && screen != LASTLEVEL) || pause == true){ //checking if the screen isn't on a level or if it's paused
-        pause = false; //unpausing
-		    if (screen == CONTINUE1 || screen == VICTORY){ //checking if the screen is on CONTINUE1 or VICTORY
-		      if (score > highScore){ //checking if the score is higher than the high score
-		        highScore = score; //replacing the high score
+      if ((screen != LEVEL1 && screen != LASTLEVEL) || pause == true){ // checking if the screen isn't on a level or if it's paused
+        pause = false; // unpausing
+		    if (screen == CONTINUE1 || screen == VICTORY){ // checking if the screen is on CONTINUE1 or VICTORY
+		      if (score > highScore){ // checking if the score is higher than the high score
+		        highScore = score; // replacing the high score
 		      }
 		    }
-      screen = INTRO; //going back to main menu
+      screen = INTRO; // going back to main menu
       }
     }
-    if ((screen == LEVEL1 || screen == LASTLEVEL) && pause == false){ //checking if the screen is on a level and it's not paused
+    if ((screen == LEVEL1 || screen == LASTLEVEL) && pause == false){ // checking if the screen is on a level and it's not paused
       move();
-      if (bricks.isEmpty()){ //checking if there are no more bricks
-        screen ++; //going to the next screen
+      if (bricks.isEmpty()){ // checking if there are no more bricks
+        screen ++; // going to the next screen
       }
-      if (lives == 0){ //if there are no more lives left
-		    if (score > highScore){ //checking if the score is higher than the high score
-		      highScore = score; //replacing the high score
+      if (lives == 0){ // if there are no more lives left
+		    if (score > highScore){ // checking if the score is higher than the high score
+		      highScore = score; // replacing the high score
 		    }
-        screen = GAMEOVER; //going to the game over screen
+        screen = GAMEOVER; // going to the game over screen
       }
     }
     repaint();
@@ -149,9 +149,9 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
   public void keyTyped(KeyEvent ke){}
   
   @Override
-  public void paint(Graphics g){ //drawing everything
-		flash ++; //increasing flash to make text appear and disappear
-    if (screen == GAMEOVER){ //checking each screen
+  public void paint(Graphics g){ // drawing everything
+		flash ++; // increasing flash to make text appear and disappear
+    if (screen == GAMEOVER){ // checking each screen
       g.setColor(Color.BLACK);
       g.fillRect(0, 0, 800, 600);
       g.setColor(Color.GRAY);
@@ -213,11 +213,11 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
         g.drawString("Press ESCAPE to Return to Menu", 0, 15);
 			}
     }
-    if (pause){ //paused
+    if (pause){ // paused
       g.setColor(Color.BLACK);
-      g.fillRect(0, 0, 200, 25); //covering the "Press ENTER to Pause" message
+      g.fillRect(0, 0, 200, 25); // covering the "Press ENTER to Pause" message
       for (int i = 0; i < balls.size(); i ++){
-        balls.get(i).draw(g); //drawing each ball again
+        balls.get(i).draw(g); // drawing each ball again
       }
       g.setColor(Color.WHITE);
       g.setFont(new Font("Comic sans MS", Font.BOLD, 50));

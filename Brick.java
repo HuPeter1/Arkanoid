@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.*;
 
-/*This class manages each Brick (making, damaging, drawing)*/
+// This class manages each Brick (making, damaging, drawing)
 
 public class Brick{
   private int x, y, height, width, health;
@@ -26,15 +26,15 @@ public class Brick{
   
   public int getHealth(){return health;}
   
-  public static void make(int level, ArrayList<Brick> bricks){ //methods that makes each brick and puts them into the ArrayList
-    if (level == ArkanoidPanel.LEVEL1){ //checking if level is LEVEL1
+  public static void make(int level, ArrayList<Brick> bricks){ // methods that makes each brick and puts them into the ArrayList
+    if (level == ArkanoidPanel.LEVEL1){ // checking if level is LEVEL1
       for (int i = 0; i < 3; i ++){
         for (int j = 0; j < 10; j ++){
           bricks.add(new Brick(j * 80, i * 30 + 100, 80, 30, Math.abs(i - 3)));
         }
       }
     }
-    else{ //bricks for LASTLEVEL
+    else{ // bricks for LASTLEVEL
       for (int i = 0; i < 2; i ++){
         for (int j = 0; j < 10; j ++){
           bricks.add(new Brick(j * 80, i * 30 + 80, 80, 30, Math.abs(i - 3)));
@@ -51,15 +51,15 @@ public class Brick{
     }
   }
   
-  public static void damage(ArrayList<Brick> bricks, Brick b){ //method for taking health away
+  public static void damage(ArrayList<Brick> bricks, Brick b){ // method for taking health away
     b.health --;
-    if (b.health == 0){ //if health reaches zero it removes it from the ArrayList
+    if (b.health == 0){ // if health reaches zero it removes it from the ArrayList
       bricks.remove(b);
     }
   }
   
-  public void draw(Graphics g){ //drawing the brick
-    if (health == 1){ //checking the health
+  public void draw(Graphics g){ // drawing the brick
+    if (health == 1){ // checking the health
       g.setColor(Color.GREEN);
     }
     else if (health == 2){

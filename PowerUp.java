@@ -2,11 +2,11 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-/*This class manages each Power Up (moving, activating, drawing)*/
+// This class manages each Power Up (moving, activating, drawing)
 
 public class PowerUp{
   private int x, y, width, height, type;
-  public static final int EXTRABALLS = 1, BIGGERPADDLE = 2, ONEUP = 3; //types of power ups
+  public static final int EXTRABALLS = 1, BIGGERPADDLE = 2, ONEUP = 3; // types of power ups
   private static Image EBImage = new ImageIcon("EXTRABALLS.jpg").getImage(), BPImage = new ImageIcon("BIGGERPADDLE.jpg").getImage(), OUImage = new ImageIcon("ONEUP.jpg").getImage();
   
   public PowerUp(int xx, int yy, int t){
@@ -21,34 +21,34 @@ public class PowerUp{
   
   public int getType(){return type;}
   
-  public static void chance(ArrayList<PowerUp> powerUps, Brick b){ //method to randomly generate power ups
+  public static void chance(ArrayList<PowerUp> powerUps, Brick b){ // method to randomly generate power ups
     Random rand = new Random();
-    if (rand.nextInt(10) == 0){ //10% chance to generate a power up
-      powerUps.add(new PowerUp(b.getX() + b.getWidth() / 2 - 20, b.getY() + b.getHeight() / 2, rand.nextInt(3) + 1)); //adding a random power up to the ArrayList
+    if (rand.nextInt(10) == 0){ // 10% chance to generate a power up
+      powerUps.add(new PowerUp(b.getX() + b.getWidth() / 2 - 20, b.getY() + b.getHeight() / 2, rand.nextInt(3) + 1)); // adding a random power up to the ArrayList
     }
   }
   
-  public static int move(ArrayList<PowerUp> powerUps, PowerUp powerUp, ArrayList<Ball> balls, Paddle p){ //moves a power up
+  public static int move(ArrayList<PowerUp> powerUps, PowerUp powerUp, ArrayList<Ball> balls, Paddle p){ // moves a power up
     powerUp.y += 2;
-    if (powerUp.getRect().intersects(p.getRect())){ //checking if it hits the paddle
-      if (powerUp.getType() == PowerUp.EXTRABALLS){ //adds two balls
+    if (powerUp.getRect().intersects(p.getRect())){ // checking if it hits the paddle
+      if (powerUp.getType() == PowerUp.EXTRABALLS){ // adds two balls
         balls.add(new Ball(p, 0));
         balls.add(new Ball(p, 0));
       }
-      else if (powerUp.getType() == PowerUp.BIGGERPADDLE){ //makes the paddle bigger
+      else if (powerUp.getType() == PowerUp.BIGGERPADDLE){ // makes the paddle bigger
         p.power();
       }
-      powerUps.remove(powerUp); //removing from ArrayList
-      return powerUp.getType(); //if the type was ONEUP it will return it and add a life in the panel
+      powerUps.remove(powerUp); // removing from ArrayList
+      return powerUp.getType(); // if the type was ONEUP it will return it and add a life in the panel
     }
-    if (powerUp.y > 600){ //if it is below the screen
-      powerUps.remove(powerUp); //removing from ArrayList
+    if (powerUp.y > 600){ // if it is below the screen
+      powerUps.remove(powerUp); // removing from ArrayList
     }
-    return 0; //nothing happened
+    return 0; // nothing happened
   }
   
-  public void draw(Graphics g){ //drawing the power up
-    if (type == EXTRABALLS){ //checking type
+  public void draw(Graphics g){ // drawing the power up
+    if (type == EXTRABALLS){ // checking type
       g.drawImage(EBImage, x, y, null);
     }
     else if (type == BIGGERPADDLE){
