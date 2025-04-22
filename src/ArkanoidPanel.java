@@ -159,8 +159,10 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
   
   @Override
   public void paint(Graphics g){ // drawing everything
-		flash ++; // increasing flash to make text appear and disappear
+		++flash; // increasing flash to make text appear and disappear
     if (screen == GAMEOVER){ // checking each screen
+      g.setColor(Color.BLACK);
+      g.fillRect(0, 0, 800, 600);
       g.setColor(Color.GRAY);
       g.setFont(new Font("Comic sans MS", Font.BOLD, 40));
       g.drawString("GAME OVER", 275, 40);
@@ -183,14 +185,14 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
     else if (screen == LEVEL1 || screen == LASTLEVEL){
       g.setColor(Color.BLACK);
       g.fillRect(0, 0, 800, 600);
-      for (int i = 0; i < balls.size(); i ++){
+      for (int i = 0; i < balls.size(); ++i){
         balls.get(i).draw(g);
       }
       p.draw(g);
-      for (int i = 0; i < bricks.size(); i ++){
+      for (int i = 0; i < bricks.size(); ++i){
         bricks.get(i).draw(g);
       }
-      for (int i = 0; i < powerUps.size(); i ++){
+      for (int i = 0; i < powerUps.size(); ++i){
         powerUps.get(i).draw(g);
       }
       g.setColor(Color.WHITE);
