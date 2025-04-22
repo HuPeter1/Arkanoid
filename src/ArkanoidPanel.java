@@ -17,7 +17,19 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
   public static final int GAMEOVER = -1, INTRO = 0, LEVEL1 = 1, CONTINUE1 = 2, LASTLEVEL = 3, VICTORY = 4; // all the different screens
   private int screen, lives, score, highScore, flash; // integers for simple game things (flash is for text flashing)
   private boolean pause; // variable to tell when the game is paused
-  private Image title, back;
+  private static final Image title, back;
+
+  static {
+    Image tImg = null, bGif = null;
+    try {
+      tImg = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("title.png"));
+	    bGif = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("back.gif"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    title = tImg;
+    back = bGif;
+  }
   
   public ArkanoidPanel(){
     keys = new boolean[KeyEvent.KEY_LAST + 1];
@@ -25,8 +37,6 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
     
     screen = INTRO;
 	  highScore = 0;
-	  title = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("title.png"));
-	  back = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("back.gif"));
     
     setFocusable(true);
     requestFocus();

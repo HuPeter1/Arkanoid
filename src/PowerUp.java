@@ -8,7 +8,21 @@ import javax.imageio.ImageIO;
 public class PowerUp{
   private int x, y, width, height, type;
   public static final int EXTRABALLS = 1, BIGGERPADDLE = 2, ONEUP = 3; // types of power ups
-  private static Image EBImage = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/EXTRABALLS.png")), BPImage = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/BIGGERPADDLE.png")), OUImage = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/ONEUP.png"));
+  private static final Image EBImage, BPImage, OUImage;
+
+  static {
+    Image EB = null, BP = null, OU = null;
+    try {
+      EB = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/EXTRABALLS.png"));
+      BP = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/BIGGERPADDLE.png"));
+      OU = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/ONEUP.png"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    EBImage = EB;
+    BPImage = BP;
+    OUImage = OU;
+  }
   
   public PowerUp(int xx, int yy, int t){
     x = xx;
