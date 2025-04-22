@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 // This class manages the game itself (screen, making levels, lives, moving, actions, deciding what to draw)
 
@@ -24,8 +25,8 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
     
     screen = INTRO;
 	  highScore = 0;
-	  title = new ImageIcon("title.png").getImage();
-	  back = new ImageIcon("back.gif").getImage();
+	  title = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("title.png"));
+	  back = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("back.gif"));
     
     setFocusable(true);
     requestFocus();

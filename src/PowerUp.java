@@ -1,13 +1,14 @@
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import javax.imageio.ImageIO;
 
 // This class manages each Power Up (moving, activating, drawing)
 
 public class PowerUp{
   private int x, y, width, height, type;
   public static final int EXTRABALLS = 1, BIGGERPADDLE = 2, ONEUP = 3; // types of power ups
-  private static Image EBImage = new ImageIcon("EXTRABALLS.png").getImage(), BPImage = new ImageIcon("BIGGERPADDLE.png").getImage(), OUImage = new ImageIcon("ONEUP.png").getImage();
+  private static Image EBImage = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/EXTRABALLS.png")), BPImage = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/BIGGERPADDLE.png")), OUImage = ImageIO.read(PowerUp.class.getResourceAsStream("Powers/ONEUP.png"));
   
   public PowerUp(int xx, int yy, int t){
     x = xx;
