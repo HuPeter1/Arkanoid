@@ -29,8 +29,8 @@ public class Paddle{
     if (powerTime > -1){ // if the BIGGERPADDLE power up is active it will decrease the time (goes to -1 so that the width isn't set to 100 each time)
       powerTime --;
     }
-    if (powerTime == 0){ // BIGGERPADDLE power up ran out so width goes back to 100
-      width = 100;
+    if (powerTime == 0){ // BIGGERPADDLE power up ran out
+      width = 100; // width goes back to 100
 			x += 25;
     }
     if (keys[left]){ // left arrow pressed

@@ -17,18 +17,16 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
   public static final int GAMEOVER = -1, INTRO = 0, LEVEL1 = 1, CONTINUE1 = 2, LASTLEVEL = 3, VICTORY = 4; // all the different screens
   private int screen, lives, score, highScore, flash; // integers for simple game things (flash is for text flashing)
   private boolean pause; // variable to tell when the game is paused
-  private static final Image title, back;
+  private static final Image title;
 
   static {
-    Image tImg = null, bGif = null;
+    Image tImg = null;
     try {
       tImg = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("title.png"));
-	    bGif = ImageIO.read(ArkanoidPanel.class.getResourceAsStream("back.gif"));
     } catch (Exception e) {
       e.printStackTrace();
     }
     title = tImg;
-    back = bGif;
   }
   
   public ArkanoidPanel(){
@@ -163,8 +161,6 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
   public void paint(Graphics g){ // drawing everything
 		flash ++; // increasing flash to make text appear and disappear
     if (screen == GAMEOVER){ // checking each screen
-      g.setColor(Color.BLACK);
-      g.fillRect(0, 0, 800, 600);
       g.setColor(Color.GRAY);
       g.setFont(new Font("Comic sans MS", Font.BOLD, 40));
       g.drawString("GAME OVER", 275, 40);
@@ -173,7 +169,8 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
 			}
     }
     else if (screen == INTRO){
-      g.drawImage(back, 0, 0, 800, 600, null);
+      g.setColor(Color.BLACK);
+      g.fillRect(0, 0, 800, 600);
       g.setColor(Color.GRAY);
 			if (flash % 150 < 75){
         g.setFont(new Font("Comic sans MS", Font.BOLD, 40));
@@ -205,7 +202,8 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
       g.drawString("Lives: " + lives, 730, 15);
     }
 	  else if (screen == VICTORY){
-      g.drawImage(back, 0, 0, 800, 600, null);
+      g.setColor(Color.BLACK);
+      g.fillRect(0, 0, 800, 600);
       g.setColor(Color.GRAY);
       g.setFont(new Font("Comic sans MS", Font.BOLD, 40));
       g.drawString("VICTORY", 275, 100);
@@ -214,7 +212,8 @@ class ArkanoidPanel extends JPanel implements KeyListener, ActionListener{
 			}
     }
     else{
-      g.drawImage(back, 0, 0, 800, 600, null);
+      g.setColor(Color.BLACK);
+      g.fillRect(0, 0, 800, 600);
       g.setColor(Color.GRAY);
       g.setFont(new Font("Comic sans MS", Font.BOLD, 40));
       g.drawString("You Beat Level 1!", 210, 100);
